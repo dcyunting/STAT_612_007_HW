@@ -1,0 +1,156 @@
+---
+title: "Week6_midterm1"
+author: "Yunting"
+date: "2/21/2020"
+output: pdf_document
+---
+# Question 1: Star Wars Characters
+#### The starwars data frame in the dplyr package contains demographic characteristics of various characters from the hit franchise Star Wars. We will use this data frame for question 1.
+
+## 1.
+```{r}
+library(tidyverse)
+library(dplyr)
+head(starwars)
+tail(starwars)
+```
+
+##  2. 
+```{r}
+starwars %>%
+  filter(is.na(gender)) %>%
+ select(name,height,species,gender) %>%
+  arrange(height)
+  
+
+```
+
+## 3.
+```{r}
+starwars %>%
+  filter(is.na(gender)) %>%
+ select(name,height,species,gender) %>%
+ arrange(height) %>%
+  mutate(gender = "droid") %>%
+  
+ head()
+
+```
+
+## 4. 
+```{r}
+starwars %>%
+   mutate(BMI = (mass/(height/100)^2))%>%
+           head()
+  
+  
+  
+```
+
+## 5.
+```{r}
+starwars %>%
+ group_by(gender) %>%
+  summarize(Max_height = max(height, na.rm = TRUE), Min_height = min(height, na.rm = TRUE), number = n())
+
+  
+  
+```
+
+## 6. 
+```{r}
+starwars %>%
+   mutate(BMI = (mass/sqrt(height/100)))%>%
+  filter(gender == "male" | gender == "female" | is.na(gender)) %>%
+  
+ggplot(aes(x = gender, y = BMI, fill = gender)) +
+  theme_bw() +
+  geom_boxplot()
+
+
+
+  
+  
+```
+
+## 7. 
+```{r}
+starwars %>%
+  ggplot(aes(x = height, y = mass, fill = hair_color )) +
+  theme_bw() +
+  geom_point()
+  
+```
+
+## 8.
+```{r}
+starwars %>%
+   filter(gender == "male" | gender == "female" | gender == "none" |  is.na(gender)) %>%
+  filter(birth_year < 120) %>%
+  ggplot(aes(x = birth_year, y = height, color = gender)) +
+    theme_bw() +
+    ggtitle("Height by Birth Year and Gender") +
+  geom_point() +
+  xlab("Birth Year") +
+  ylab("Height") +
+  geom_smooth( se = FALSE, linetype = "dashed", color = "black")
+  
+  
+```
+
+# Question 2: Coding Exercises
+## 1. 
+```{r}
+convert <- function(x){
+  stopifnot(is.numeric(x))
+  
+  if(x %% 2 ==0){return(x^2)
+  }else if (x %% 2 ==1){return(x^3)
+  }else if(!(is.integer(x))){
+        return(Inf)}
+  
+  
+  
+  
+  
+  
+}
+
+convert(0)
+convert(4)
+convert(7)
+convert(2.5)
+```
+
+## 2. (4 pts) Reproduce the following lines (with URL) and table in R Markdown:
+
+* Typing Test Phrases
+
+--*The* **quick** [brown](https://r4ds.had.co.nz/) ~~fox~~ jumps
+
+ over | the
+ -----|-------
+ lazy | dog
+
+* Math Phrases
+
+ -- – Given a sample of size n from a population with values $y_{i}$, we use $\overline{Y}$ to estimate the true mean $\mu$ where $$\overline{Y} = \sum_{i=1}^{n} \frac{y_{i}}{n}$$
+
+
+
+## 3.
+```{r error=TRUE}
+set.seed(1)
+Test123 <-  function(a){
+  stopifnot(length(a) <= 5)} %>%
+  
+  
+  ggplot(Test123, mapping = aes(x = rnorm(1000, mean = a, sd = 1)))+
+  geom_histogram(bins = 50,fill = "white", color = "blue")+
+  theme_minimal()+
+  xlab("x")
+
+Test123(c(1,-10.2,5))
+Test123(c(1,2,3,4,5,6))
+```
+
