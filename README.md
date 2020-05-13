@@ -1,2 +1,2 @@
 # Statistical-Programming-in-R
-practice R function
+practice R function for homework
